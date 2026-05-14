@@ -36,7 +36,7 @@ Exposes cloud AI models as MCP tools so AI CLI agents (Claude Code, Gemini CLI, 
 ### Install
 
 ```bash
-git clone https://github.com/jphein/cloud-chat-assistant.git
+git clone https://github.com/techempower-org/cloud-chat-assistant.git
 cd cloud-chat-assistant
 python3 -m venv venv
 ./venv/bin/pip install httpx
@@ -144,21 +144,21 @@ This project is part of a four-project voice AI system:
 
 | Project | Role |
 |---------|------|
-| [speech-to-cli](https://github.com/jphein/speech-to-cli) | Audio engine — STT, TTS, VAD, recorder |
+| [speech-to-cli](https://github.com/techempower-org/speech-to-cli) | Audio engine — STT, TTS, VAD, recorder |
 | **cloud-chat-assistant** (this) | Multi-cloud LLM provider |
-| [gnome-speaks](https://github.com/jphein/gnome-speaks) | GNOME Shell extension — desktop voice UI |
-| [the-oracle](https://github.com/jphein/the-oracle) | Web frontend — proxies both MCP servers |
+| [gnome-speaks](https://github.com/techempower-org/gnome-speaks) | GNOME Shell extension — desktop voice UI |
+| [the-oracle](https://github.com/techempower-org/the-oracle) | Web frontend — proxies both MCP servers |
 
 ### Voice Integration
 
-Pair with [speech-to-cli](https://github.com/jphein/speech-to-cli) for voice conversations:
+Pair with [speech-to-cli](https://github.com/techempower-org/speech-to-cli) for voice conversations:
 
 1. `multi_chat` — queries all models in parallel
 2. `multi_speak` — synthesizes all responses, plays sequentially
 
 ### GNOME Speaks Integration
 
-[gnome-speaks](https://github.com/jphein/gnome-speaks) can call cloud-chat-assistant directly for AI conversation mode, and its preferences panel can configure this project's settings (`~/.config/cloud-chat-assistant/config.json`) — including provider credentials, generation parameters, and model selection — from a unified GNOME settings UI.
+[gnome-speaks](https://github.com/techempower-org/gnome-speaks) can call cloud-chat-assistant directly for AI conversation mode, and its preferences panel can configure this project's settings (`~/.config/cloud-chat-assistant/config.json`) — including provider credentials, generation parameters, and model selection — from a unified GNOME settings UI.
 
 ## Architecture
 
