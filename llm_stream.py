@@ -273,13 +273,19 @@ def _build_request(provider: str, model: str, messages: list[dict],
         # OpenAI-compatible local/LAN server (Ollama, llama.cpp, vLLM, …).
         # Endpoint comes from config (local_endpoint), never from code.
         # No API key required; Authorization sent only if one is configured.
+        # local_extra_body (dict) merges into the request — e.g. reasoning
+        # models: {"chat_template_kwargs": {"enable_thinking": false}} so a
+        # voice reply doesn't sit behind a 30s hidden chain-of-thought.
         ep = (cfg.get("local_endpoint") or "").rstrip("/")
         if not ep: raise LLMStreamError(provider, "No local endpoint configured (set local_endpoint)")
         headers = {"Content-Type": "application/json"}
         key = cfg.get("api_key") or cfg.get("llm_api_key", "")
         if key: headers["Authorization"] = f"Bearer {key}"
-        return (f"{ep}/v1/chat/completions", headers,
-                {"model": model, "messages": _openai_msgs(sp, msgs), "max_tokens": mt, "stream": True})
+        body = {"model": model, "messages": _openai_msgs(sp, msgs), "max_tokens": mt, "stream": True}
+        extra = cfg.get("local_extra_body")
+        if isinstance(extra, dict):
+            body.update(extra)
+        return (f"{ep}/v1/chat/completions", headers, body)
 
     if provider == "azure":
         ak, ep = cfg.get("api_key", ""), cfg.get("endpoint", "")
